@@ -52,10 +52,36 @@ namespace ConsoleApp6
                         ViewProducts(GetConnectionString());
                         return;
                     case "C":
-                        EditProduct(GetConnectionString());
+                        invalidOption:
+                        Console.Write("Enter Product ID to edit: ");
+                        var user_selection_id = Console.ReadLine();
+                        int id;
+                        try
+                        {
+                            id = int.Parse(user_selection_id);
+                            EditProduct(GetConnectionString(), id);
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Please enter a valid ID");
+                            goto invalidOption;
+                        }
                         return;
                     case "D":
-                        DeleteProduct(GetConnectionString());
+                    invalidOptionDelete:
+                        Console.Write("Enter Product ID to delete: ");
+                        var user_selection_id_delete = Console.ReadLine();
+                        int id_delete;
+                        try
+                        {
+                            id_delete = int.Parse(user_selection_id_delete);
+                            DeleteProduct(GetConnectionString(), id_delete);
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Please enter a valid ID");
+                            goto invalidOptionDelete;
+                        }
                         return;
                     case "X":
                         Environment.Exit(0);
@@ -224,7 +250,10 @@ namespace ConsoleApp6
                     
                 }
 
-                Console.WriteLine($"Count of results in Product Table: {count}");
+                var lineBreak = $"Count of results in Product Table: {count}";
+
+                for(int i = 0; i < lineBreak.Length; i++) Console.Write("_");
+                Console.WriteLine("\n" + lineBreak);
             }
             catch (Exception ex)
             {
@@ -255,9 +284,9 @@ namespace ConsoleApp6
             }
         }
 
-        static void EditProduct(string connectionString)
+        static void EditProduct(string connectionString, int id)
         {
-            var title = "Editing {Product} (press r to return)"; // To contain a product name later
+            var title = $"Editing {id} (press r to return)"; // To contain a product name later
             Console.Clear();
             Console.WriteLine(title);
             for (int i = 0; i < title.Length; i++) Console.Write("_");
@@ -287,9 +316,9 @@ namespace ConsoleApp6
             }
         }
 
-        static void DeleteProduct(string connectionString)
+        static void DeleteProduct(string connectionString, int id)
         {
-            var title = "Deleting {Product} (press r to return)";  // To contain a product name later
+            var title = $"Deleting {id} (press r to return)";  // To contain a product name later
             Console.Clear();
             Console.WriteLine(title);
             for (int i = 0; i < title.Length; i++) Console.Write("_");
