@@ -11,7 +11,7 @@ namespace ConsoleApp6
             Menu();
         }
         private static string GetConnectionString() =>
-            "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Management;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+            "{Your database connection here}";
 
         static void Menu()
         {
